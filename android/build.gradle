@@ -1,0 +1,23 @@
+// Aplicación en todos los proyectos
+allprojects {
+    repositories {
+        google()       // Repositorio de Google para las dependencias de Android
+        mavenCentral() // Repositorio Maven Central
+    }
+}
+
+// Establece el directorio de construcción del proyecto raíz
+rootProject.buildDir = "../build"
+
+// Configura los directorios de construcción para los subproyectos
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+
+    // Dependencias de evaluación para que los subproyectos dependan de ':app'
+    project.evaluationDependsOn(":app")
+}
+
+// Define una tarea 'clean' para eliminar el directorio de construcción
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
